@@ -95,7 +95,6 @@ def run_analysis(tweet, financial_data, effect_day, start_date, end_date):
         st.pyplot(ci.plot())
         sleep(10)
 
-api_key = st.sidebar.text_input("Please provide your open AI key", "")
 tweet = st.sidebar.text_input("Please provide content of the tweet", "One word: Doge")
 date = st.sidebar.text_input("When provide a date when the tweet happened (e.g. 2022-01-02)", "2020-12-20")
 currency = st.sidebar.text_input("What currency you want to compare to USD (e.g. DOGE, PLN, BTC)", "DOGE")
