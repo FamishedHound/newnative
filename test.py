@@ -96,9 +96,9 @@ def run_analysis(tweet, financial_data, effect_day, start_date, end_date):
         st.pyplot(ci.plot())
         sleep(10)
 with introduction:
-    st.title("# How your twitter idol is affecting crypto/currencies")
+    st.title("How your twitter idol is affecting crypto/currencies")
 
-    st.markdown("## Goal of the app is to help people that influencing "
+    st.markdown("Goal of the app is to help people that influencing "
                 "currency or crypto prices via Twitter. Event driven day trading is a popular"
                 "method for day traders. Articles,events as well as twitter post can be translated"
                 "into accurate signals. By using GPT-3 we are able to determine the sentiment of the"
