@@ -68,7 +68,7 @@ def run_analysis(tweet, financial_data, effect_day, start_date, end_date):
         #
         # string_date = df[df['tweet'] == tweet].date.iloc[0].split(" ")[0].split("-")
         # tweet_time = datetime.datetime(int(string_date[0]), int(string_date[1]), int(string_date[2]))
-        st.write("## We Found following financial data from yahoo finance")
+        st.write("### We found following financial data from yahoo finance")
         st.write(financial_data.head(10))
         causal_df = pd.DataFrame(
             {'y': financial_data["Close"], 'X1': financial_data["Volume"],'X2':financial_data["Open"],'X3':financial_data["Low"]}, columns=['y', 'X1','X2','X3'])
@@ -101,8 +101,8 @@ with introduction:
                 "Please feel free to play around with different tweets"
                 "Note all crypto are compared against US dollar so the metric used is your_crypto/USD")
 tweet = st.sidebar.text_input("Please provide content of the tweet", "One word: Doge")
-date = st.sidebar.text_input("When provide a date when the tweet happened (e.g. 2022-01-02)", "2020-12-20")
-currency = st.sidebar.text_input("What currency you want to compare to USD (e.g. DOGE, PLN, BTC)", "DOGE")
+date = st.sidebar.text_input("Provide a date when the tweet happened (e.g. 2022-01-02)", "2019-03-31")
+currency = st.sidebar.text_input("What currency you want to compare to USD (e.g. DOGE, ETH, BTC)", "DOGE")
 state = st.sidebar.button("Let's analyze this tweet !")
 
 if state:
