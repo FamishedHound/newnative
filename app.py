@@ -75,7 +75,7 @@ def run_analysis(tweet, financial_data, effect_day, start_date, end_date):
 
         day_after_effect_day = effect_day + datetime.timedelta(days=1)
         start_date = start_date + datetime.timedelta(days=3)
-        end_date = end_date - datetime.timedelta(days=3)
+        end_date = day_after_effect_day + datetime.timedelta(days=5)
         pre_period = [start_date.strftime("%Y-%m-%d"), effect_day.strftime("%Y-%m-%d")]
         post_period = [day_after_effect_day.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")]
 
