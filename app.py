@@ -8,6 +8,7 @@ from causalimpact import CausalImpact
 import streamlit as st
 import matplotlib
 import datetime
+
 matplotlib.use('Agg')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 pd.set_option('display.max_colwidth', None)
@@ -15,11 +16,13 @@ header = st.container()
 introduction = st.container()
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
+
 def create_tweets_string_for_sentiment(list_of_tweets):
     str = 'Classify the sentiment in these tweets:\n\n'
     for idx, tweet in enumerate(list_of_tweets):
         str += f"{idx + 1}. \"{tweet}\"\n"
     return str
+
 
 @st.cache
 def gpt_3_request(str):
@@ -33,6 +36,7 @@ def gpt_3_request(str):
         presence_penalty=0.0
     )
     return response["choices"][0]["text"].replace(",", "\n")
+
 
 @st.cache
 def fetch_financial_data(currency, when):
@@ -71,7 +75,8 @@ def run_analysis(tweet, financial_data, effect_day, start_date, end_date):
         st.write("### We found following financial data from yahoo finance")
         st.write(financial_data.head(10))
         causal_df = pd.DataFrame(
-            {'y': financial_data["Close"], 'X1': financial_data["Volume"],'X2':financial_data["Open"],'X3':financial_data["Low"]}, columns=['y', 'X1','X2','X3'])
+            {'y': financial_data["Close"], 'X1': financial_data["Volume"], 'X2': financial_data["Open"],
+             'X3': financial_data["Low"]}, columns=['y', 'X1', 'X2', 'X3'])
 
         day_after_effect_day = effect_day + datetime.timedelta(days=1)
         start_date = start_date + datetime.timedelta(days=3)
@@ -84,22 +89,28 @@ def run_analysis(tweet, financial_data, effect_day, start_date, end_date):
         st.markdown(f" ## {ci.summary('report')}")
         st.pyplot(ci.plot())
         sleep(10)
+
+
 with introduction:
     st.title("How your twitter idol is affecting crypto")
 
-    st.markdown("Goal of the app is to help people that are interested in targeting people that are influencing "
-                " crypto prices via Twitter. Event driven day trading is a popular"
-                "method for day traders. Articles,events as well as twitter posts can be translated"
-                "into accurate signals. By using GPT-3 we are able to determine the sentiment of the"
-                "tweets which can tell us if positive tweets regarding certain currency are influencing the "
-                "price. In order to know if the event had effect we need time series to predict what would"
-                "have happened if such event had no place. That is why I trained Bayesian Structural Time Series"
-                "model that can deliver just that. With Prediction (Shown as --- line) and what happened in reality (shown as y)"
-                "We can simulate statistical test or A/B test and know the magnitude of the effect as well as probability/uncertainty "
-                "of the effect."
-                ""
-                "Please feel free to play around with different tweets"
-                "Note all crypto are compared against US dollar so the metric used is your_crypto/USD")
+    st.markdown("""
+    The goal of the app is to help people that are interested in targeting people that are influencing crypto prices via Twitter.
+   Event-driven day trading is a popular method for day traders.
+   Articles, events as well as Twitter posts can be translated into accurate signals. 
+   By using GPT-3 we can determine the sentiment of the tweets which can tell us if positive tweets regarding a particular crypto-currency are influencing the price.
+   To know if the event had an effect we need time series to predict what would have happened if such an event had no place.
+   That is why I trained the Bayesian Structural Time Series model that can deliver just that.
+   With Prediction (Shown as --- line) and what happened in reality (shown as y).
+   We can simulate a statistical test or A/B test and know the magnitude of the effect as well as the probability/uncertainty of the effect.
+   Please feel free to play around with different tweetsNote all crypto are compared against the US dollar so the metric used is your_crypto/USD.
+   
+   Given enough celebrities or popular twitter users that have a huge effect on the crypto prices can potentially be a great strategy for personal investing.
+    This is not financial advise please thread carefully when trading based on information from this app. 
+   
+Please feel free to play around with different tweets
+Note all crypto are compared against US dollar so the metric used is your_crypto/USD
+                """)
 tweet = st.sidebar.text_input("Please provide content of the tweet", "One word: Doge")
 date = st.sidebar.text_input("Provide a date when the tweet happened (e.g. 2022-01-02)", "2019-03-31")
 currency = st.sidebar.text_input("What currency you want to compare to USD (e.g. DOGE, ETH, BTC)", "DOGE")
