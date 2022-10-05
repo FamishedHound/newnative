@@ -15,7 +15,7 @@ matplotlib.use('Agg')
 
 pd.set_option('display.max_colwidth', None)
 header = st.container()
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 
 
