@@ -12,7 +12,7 @@ import matplotlib
 
 matplotlib.use('Agg')
 
-
+st.set_option('deprecation.showPyplotGlobalUse', False)
 pd.set_option('display.max_colwidth', None)
 header = st.container()
 openai.api_key = st.secrets["OPENAI_API_KEY"]
