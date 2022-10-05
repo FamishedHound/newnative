@@ -7,7 +7,7 @@ import pandas as pd
 from causalimpact import CausalImpact
 import streamlit as st
 import matplotlib
-os.environ["OPENAI_API_KEY"] = "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"
+
 
 
 matplotlib.use('Agg')
@@ -15,7 +15,7 @@ matplotlib.use('Agg')
 
 pd.set_option('display.max_colwidth', None)
 header = st.container()
-
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 
 
